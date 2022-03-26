@@ -4,4 +4,4 @@
                  :junk-allowed t)))
     (code-char code)))
 
-(princ (http-char #\2 #\h))
+(princ (http-char #\4 #\1))
