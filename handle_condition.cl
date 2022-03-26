@@ -5,4 +5,6 @@
 (defun bad-function ()
   (error 'foo))
 
-(bad-function)
+(handler-case (bad-function)
+  (foo () "somebody signaled foo!")
+  (bar () "somebody signaled bar!"))
