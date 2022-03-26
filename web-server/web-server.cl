@@ -2,6 +2,7 @@
   (let ((code (parse-integer (coerce (list c1 c2) 'string)
                  :radix 16
                  :junk-allowed t)))
-    (code-char code)))
+    (if code
+        (code-char code))))
 
 (princ (http-char #\4 #\1))
