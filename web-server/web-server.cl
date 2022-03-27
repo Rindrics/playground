@@ -7,7 +7,9 @@
       default)))
 
 (defun decode-param (s)
-  (coerce s 'list))
+  (labels ((f (lst)
+              lst))
+    (coerce (f (coerce s 'list)) 'string)))
 
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo"))
