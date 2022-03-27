@@ -7,7 +7,7 @@
       default)))
 
 (defun decode-param (s)
-  s)
+  (coerce s 'list))
 
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo"))
