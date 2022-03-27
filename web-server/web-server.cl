@@ -1,8 +1,9 @@
-(defun http-char (c1 c2)
+(defun http-char (c1 c2 &optional (default #\Space))
   (let ((code (parse-integer (coerce (list c1 c2) 'string)
                  :radix 16
                  :junk-allowed t)))
     (if code
-        (code-char code))))
+        (code-char code)
+      default)))
 
 (princ (http-char #\4 #\1))
