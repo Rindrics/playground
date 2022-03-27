@@ -14,4 +14,4 @@
     (coerce (f (coerce s 'list)) 'string)))
 
 (princ (http-char #\4 #\1))
-(princ (decode-param "foo"))
+(princ (decode-param "foo%3Fbar+baz"))
