@@ -8,7 +8,9 @@
 
 (defun decode-param (s)
   (labels ((f (lst)
-              lst))
+              (when lst
+                (case (car lst)
+                  (otherwise (cons (car lst) (f (cdr lst))))))))
     (coerce (f (coerce s 'list)) 'string)))
 
 (princ (http-char #\4 #\1))
