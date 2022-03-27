@@ -6,4 +6,8 @@
         (code-char code)
       default)))
 
+(defun decode-param (s)
+  s)
+
 (princ (http-char #\4 #\1))
+(princ (decode-param "foo"))
