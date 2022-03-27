@@ -10,6 +10,8 @@
   (labels ((f (lst)
               (when lst
                 (case (car lst)
+                  (#\% (cons (http-char (cadr lst) (caddr lst))
+                             (f (cdddr lst))))
                   (otherwise (cons (car lst) (f (cdr lst))))))))
     (coerce (f (coerce s 'list)) 'string)))
 
