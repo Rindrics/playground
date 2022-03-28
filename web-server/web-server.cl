@@ -17,8 +17,11 @@
     (coerce (f (coerce s 'list)) 'string)))
 
 (defun parse-params (s)
-  s)
+  (let ((i1 (position #\= s)))
+    (cond (i1 i1)
+          (nil))))
 
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
 (princ (parse-params "name=bob&age=25&gender=male"))
+(princ (parse-params "hoge"))
