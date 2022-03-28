@@ -19,10 +19,10 @@
 (defun parse-params (s)
   (let ((i1 (position #\= s))
         (i2 (position #\& s)))
-    (cond (i1 (cons (subseq s 0 i1) (subseq s (1+ i1) i2)))
+    (cond (i1 (cons (subseq s 0 i1) (decode-param (subseq s (1+ i1) i2))))
           (nil))))
 
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
-(princ (parse-params "name=bob&age=25&gender=male"))
+(princ (parse-params "name=bob+marley%3F&age=25&gender=male"))
 (princ (parse-params "hoge"))
