@@ -17,8 +17,9 @@
     (coerce (f (coerce s 'list)) 'string)))
 
 (defun parse-params (s)
-  (let ((i1 (position #\= s)))
-    (cond (i1 i1)
+  (let ((i1 (position #\= s))
+        (i2 (position #\& s)))
+    (cond (i1 (subseq s 0 i1))
           (nil))))
 
 (princ (http-char #\4 #\1))
