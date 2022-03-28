@@ -16,5 +16,9 @@
                   (otherwise (cons (car lst) (f (cdr lst))))))))
     (coerce (f (coerce s 'list)) 'string)))
 
+(defun parse-params (s)
+  s)
+
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
+(princ (parse-params "name=bob&age=25&gender=male"))
