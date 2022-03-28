@@ -19,7 +19,7 @@
 (defun parse-params (s)
   (let ((i1 (position #\= s))
         (i2 (position #\& s)))
-    (cond (i1 (cons (subseq s 0 i1) "-"))
+    (cond (i1 (cons (subseq s 0 i1) (subseq s (1+ i1) i2)))
           (nil))))
 
 (princ (http-char #\4 #\1))
