@@ -42,6 +42,13 @@
     (when h
       (cons h (get-header stream)))))
 
+(defun get-content-params (stream header)
+  (let ((length (cdr (assoc 'content-length header))))
+    (when length
+      (let ((content (make-string (parse-integer length))))
+        (read-sequence content stream)
+        (parse-params content)))))
+
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
 (princ (parse-params "name=bob+marley%3F&age=25&gender=male"))
@@ -54,3 +61,13 @@ bar: abc, 123
 baz: hoge
 
 ")))
+
+(princ "
+")
+(let* ((stream (make-string-input-stream "Host: foo.example
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 37
+
+name=bob+marley%3F&age=25&gender=male"))
+       (header (get-header stream)))
+  (princ (get-content-params stream header)))
