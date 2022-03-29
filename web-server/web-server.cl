@@ -19,7 +19,7 @@
 (defun parse-params (s)
   (let ((i1 (position #\= s))
         (i2 (position #\& s)))
-    (cond (i1 (cons (cons (subseq s 0 i1) (decode-param (subseq s (1+ i1) i2)))
+    (cond (i1 (cons (cons (intern (string-upcase (subseq s 0 i1))) (decode-param (subseq s (1+ i1) i2)))
                     (and i2 (parse-params (subseq s (1+ i2))))))
           ((equal s "") nil)
           (t s))))
@@ -37,7 +37,7 @@
   (let* ((s (read-line stream))
          (h (let ((i (position #\: s)))
               (when i
-                (cons (subseq s 0 i)
+                (cons (intern (string-upcase (subseq s 0 i)))
                       (subseq s (+ i 2)))))))
     (when h
       (cons h (get-header stream)))))
