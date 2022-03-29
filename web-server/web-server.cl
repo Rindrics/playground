@@ -59,8 +59,10 @@
 
 (defun serve (request-handler)
   (let ((socket (socket-server 8080)))
-    (loop
-     (princ socket))))
+    (unwind-protect
+        (loop
+         (princ socket))
+      (socket-server-close socket))))
 
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
