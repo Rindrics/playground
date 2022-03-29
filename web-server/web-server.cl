@@ -39,7 +39,8 @@
               (when i
                 (cons (subseq s 0 i)
                       (subseq s (+ i 2)))))))
-    h))
+    (when h
+      (cons h (get-header stream)))))
 
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
