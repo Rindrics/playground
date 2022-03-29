@@ -49,6 +49,14 @@
         (read-sequence content stream)
         (parse-params content)))))
 
+(defun hello-request-handler (path header params)
+  (if (equal path "greeting")
+      (let ((name (assoc 'name params)))
+        (if (not name)
+            (princ "<html><form>What is your name?<input name='name' /></form></html>")
+          (format t "<html>Nice to meet you, ~a!</html>" (cdr name))))
+    (princ "Sorry, I don't know that page.")))
+
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
 (princ (parse-params "name=bob+marley%3F&age=25&gender=male"))
@@ -71,3 +79,14 @@ Content-Length: 37
 name=bob+marley%3F&age=25&gender=male"))
        (header (get-header stream)))
   (princ (get-content-params stream header)))
+
+(princ "
+")
+
+(hello-request-handler "hoge" '() '())
+(princ "
+")
+(hello-request-handler "greeting" '() '())
+(princ "
+")
+(hello-request-handler "greeting" '() '((name . "Bob Marley")))
