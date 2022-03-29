@@ -57,6 +57,19 @@
           (format t "<html>Nice to meet you, ~a!</html>" (cdr name))))
     (princ "Sorry, I don't know that page.")))
 
+(defun serve (request-handler)
+  (let ((socket (socket-server 8080)))
+    (unwind-protect
+        (loop (with-open-stream (stream (socket-accept socket))
+                                (let* ((url (parse-url (read-line stream)))
+                                       (path (car url))
+                                       (header (get-header stream))
+                                       (params (append (cdr url)
+                                                       (get-content-params stream header)))
+                                       (*standard-output* stream))
+                                  (funcall request-handler path header params))))
+      (socket-server-close socket))))
+
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
 (princ (parse-params "name=bob+marley%3F&age=25&gender=male"))
@@ -90,3 +103,8 @@ name=bob+marley%3F&age=25&gender=male"))
 (princ "
 ")
 (hello-request-handler "greeting" '() '((name . "Bob Marley")))
+
+(princ "
+")
+
+(serve #'hello-request-handler)
