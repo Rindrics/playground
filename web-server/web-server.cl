@@ -49,6 +49,9 @@
         (read-sequence content stream)
         (parse-params content)))))
 
+(defun hello-request-handler (path header params)
+  (princ "Sorry, I don't know that page."))
+
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
 (princ (parse-params "name=bob+marley%3F&age=25&gender=male"))
@@ -71,3 +74,8 @@ Content-Length: 37
 name=bob+marley%3F&age=25&gender=male"))
        (header (get-header stream)))
   (princ (get-content-params stream header)))
+
+(princ "
+")
+
+(hello-request-handler "hoge" '() '())
