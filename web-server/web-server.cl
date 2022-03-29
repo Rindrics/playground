@@ -25,7 +25,9 @@
           (t s))))
 
 (defun parse-url (s)
-  (let ((url (subseq s (+ 2 (position #\space s)))))
+  (let ((url (subseq s
+                     (+ 2 (position #\space s))
+                     (position #\space s :from-end t))))
     url))
 
 (princ (http-char #\4 #\1))
