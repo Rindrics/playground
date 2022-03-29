@@ -51,7 +51,9 @@
 
 (defun hello-request-handler (path header params)
   (if (equal path "greeting")
-      (princ "Hello!")
+      (let ((name (assoc 'name params)))
+        (if (not name)
+            (princ "<html><form>What is your name?<input name='name' /></form></html>")))
     (princ "Sorry, I don't know that page.")))
 
 (princ (http-char #\4 #\1))
