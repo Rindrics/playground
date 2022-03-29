@@ -24,8 +24,19 @@
           ((equal s "") nil)
           (t s))))
 
+(defun parse-url (s)
+  (let* ((url (subseq s
+                     (+ 2 (position #\space s))
+                     (position #\space s :from-end t)))
+         (x (position #\? url)))
+    (if x
+        (cons (subseq url 0 x) (parse-params (subseq url (1+ x))))
+      (cons url '()))))
+
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
 (princ (parse-params "name=bob+marley%3F&age=25&gender=male"))
 (princ (parse-params "hoge"))
 (princ (parse-params ""))
+(princ (parse-url "GET /hoge.example.com?name=bob+marley%3F&age=25&gender=male HTTP/1.1"))
+(princ (parse-url "GET /hoge.example.com HTTP/1.1"))
