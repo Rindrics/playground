@@ -50,7 +50,9 @@
         (parse-params content)))))
 
 (defun hello-request-handler (path header params)
-  (princ "Sorry, I don't know that page."))
+  (if (equal path "greeting")
+      (princ "Hello!")
+    (princ "Sorry, I don't know that page.")))
 
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
@@ -79,3 +81,6 @@ name=bob+marley%3F&age=25&gender=male"))
 ")
 
 (hello-request-handler "hoge" '() '())
+(princ "
+")
+(hello-request-handler "greeting" '() '())
