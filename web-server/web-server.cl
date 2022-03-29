@@ -58,8 +58,9 @@
     (princ "Sorry, I don't know that page.")))
 
 (defun serve (request-handler)
-  (loop
-   (princ "serving")))
+  (let ((socket (socket-server 8080)))
+    (loop
+     (princ socket))))
 
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
