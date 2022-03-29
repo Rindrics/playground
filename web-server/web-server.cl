@@ -25,10 +25,11 @@
           (t s))))
 
 (defun parse-url (s)
-  (let ((url (subseq s
+  (let* ((url (subseq s
                      (+ 2 (position #\space s))
-                     (position #\space s :from-end t))))
-    url))
+                     (position #\space s :from-end t)))
+         (x (position #\? url)))
+    (cons url x)))
 
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
