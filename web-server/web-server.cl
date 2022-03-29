@@ -60,8 +60,14 @@
 (defun serve (request-handler)
   (let ((socket (socket-server 8080)))
     (unwind-protect
-        (loop
-         (princ socket))
+        (loop (with-open-stream (stream (socket-accept socket))
+                                (let* ((url (parse-url (read-line stream)))
+                                       (path (car url))
+                                       (header (get-header stream))
+                                       (params (append (cdr url)
+                                                       (get-content-params stream header)))
+                                       (*standard-output* stream))
+                                  (funcall request-handler path header params))))
       (socket-server-close socket))))
 
 (princ (http-char #\4 #\1))
