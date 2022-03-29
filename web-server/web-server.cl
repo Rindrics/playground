@@ -43,7 +43,8 @@
       (cons h (get-header stream)))))
 
 (defun get-content-params (stream header)
-  header)
+  (let ((length (cdr (assoc 'content-length header))))
+    length))
 
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
