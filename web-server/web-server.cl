@@ -57,6 +57,10 @@
           (format t "<html>Nice to meet you, ~a!</html>" (cdr name))))
     (princ "Sorry, I don't know that page.")))
 
+(defun serve (request-handler)
+  (loop
+   (princ "serving")))
+
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
 (princ (parse-params "name=bob+marley%3F&age=25&gender=male"))
@@ -90,3 +94,8 @@ name=bob+marley%3F&age=25&gender=male"))
 (princ "
 ")
 (hello-request-handler "greeting" '() '((name . "Bob Marley")))
+
+(princ "
+")
+
+(serve #'hello-request-handler)
