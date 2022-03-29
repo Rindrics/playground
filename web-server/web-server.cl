@@ -33,6 +33,15 @@
         (cons (subseq url 0 x) (parse-params (subseq url (1+ x))))
       (cons url '()))))
 
+(defun get-header (stream)
+  (let* ((s (read-line stream))
+         (h (let ((i (position #\: s)))
+              (when i
+                (cons (subseq s 0 i)
+                      (subseq s (+ i 2)))))))
+    (when h
+      (cons h (get-header stream)))))
+
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
 (princ (parse-params "name=bob+marley%3F&age=25&gender=male"))
@@ -40,3 +49,8 @@
 (princ (parse-params ""))
 (princ (parse-url "GET /hoge.example.com?name=bob+marley%3F&age=25&gender=male HTTP/1.1"))
 (princ (parse-url "GET /hoge.example.com HTTP/1.1"))
+(princ (get-header (make-string-input-stream "foo: 1
+bar: abc, 123
+baz: hoge
+
+")))
