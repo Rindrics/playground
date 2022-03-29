@@ -25,7 +25,8 @@
           (t s))))
 
 (defun parse-url (s)
-  s)
+  (let ((url (subseq s (1+ (position #\/ s)))))
+    url))
 
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
