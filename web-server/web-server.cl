@@ -29,7 +29,8 @@
                      (+ 2 (position #\space s))
                      (position #\space s :from-end t)))
          (x (position #\? url)))
-    (cons url x)))
+    (if x
+        (cons (subseq url 0 x) (parse-params (subseq url (1+ x)))))))
 
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
