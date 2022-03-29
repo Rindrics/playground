@@ -34,8 +34,9 @@
       (cons url '()))))
 
 (defun get-header (stream)
-  (let ((s (read-line stream)))
-    s))
+  (let* ((s (read-line stream))
+         (key (subseq s 0 (position #\: s))))
+    key))
 
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
