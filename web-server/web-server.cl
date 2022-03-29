@@ -24,8 +24,12 @@
           ((equal s "") nil)
           (t s))))
 
+(defun parse-url (s)
+  s)
+
 (princ (http-char #\4 #\1))
 (princ (decode-param "foo%3Fbar+baz"))
 (princ (parse-params "name=bob+marley%3F&age=25&gender=male"))
 (princ (parse-params "hoge"))
 (princ (parse-params ""))
+(princ (parse-url "GET /hoge.example.com?name=bob+marley%3F&age=25&gender=male HTTP/1.1"))
